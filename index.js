@@ -5,11 +5,6 @@ String.prototype.reverse = function() {
     return Array.from(this).reverse().join("");
 }
 
-function palindromeCheck(string) {
-    let lowerString = string.toLowerCase()
-    return lowerString === reverse(lowerString);
-}
-
 function Phrase(content) {
     this.content = content;
 
@@ -18,7 +13,11 @@ function Phrase(content) {
     }
 
     this.processedContent = function processedContent() {
-        return this.processor(this.content);
+        return this.processor(this.letters());
+    }
+
+    this.letters = function letters() {
+        return (this.content.match(/[a-z]/gi) || []).join("");
     }
 
     this.palindrome = function palindrome() {
@@ -29,19 +28,3 @@ function Phrase(content) {
         return this.content.toUpperCase();
     }
 }
-
-function emailParts(email) {
-    let processedEmail = email.toLowerCase();
-    return processedEmail.split("@");
-}
-
-function TranslatedPhrase(content, translation) {
-    this.content = content;
-    this.translation = translation;
-
-    this.processedContent = function processedContent () {
-        return this.processor(this.translation);
-    }
-}
-
-TranslatedPhrase.prototype = new Phrase();
